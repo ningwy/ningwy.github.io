@@ -6,14 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="ningwy.github.io">
-  <title>Archives | ningwy&#39;s blog</title>
+  <title>Activity详解（一）——Activity的生命周期全分析 | ningwy&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="ningwy's blog">
-<meta property="og:url" content="ningwy.github.io/archives/index.html">
+  <meta name="description" content="Android的生命周期相信大家都很熟悉了，这里记录的是自己在学习开发过程中的一些经验之谈，希望以后自己忘记了能有个笔记翻一下。
+1.Activity正常的生命周期&amp;ensp;&amp;ensp;&amp;ensp;&amp;ensp; 我们平常所说的生命周期就是正常的生命周期，也是Activity典型的生命周期，从Activity创建到结束会调用如下方法：
+&amp;ensp;&amp;ensp;&amp;ensp;&amp;ensp; （1）onC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Activity详解（一）——Activity的生命周期全分析">
+<meta property="og:url" content="ningwy.github.io/2017/01/04/Activity详解（一）——Activity的生命周期全分析/index.html">
 <meta property="og:site_name" content="ningwy's blog">
+<meta property="og:description" content="Android的生命周期相信大家都很熟悉了，这里记录的是自己在学习开发过程中的一些经验之谈，希望以后自己忘记了能有个笔记翻一下。
+1.Activity正常的生命周期&amp;ensp;&amp;ensp;&amp;ensp;&amp;ensp; 我们平常所说的生命周期就是正常的生命周期，也是Activity典型的生命周期，从Activity创建到结束会调用如下方法：
+&amp;ensp;&amp;ensp;&amp;ensp;&amp;ensp; （1）onC">
+<meta property="og:updated_time" content="2017-03-07T15:50:25.334Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ningwy's blog">
+<meta name="twitter:title" content="Activity详解（一）——Activity的生命周期全分析">
+<meta name="twitter:description" content="Android的生命周期相信大家都很熟悉了，这里记录的是自己在学习开发过程中的一些经验之谈，希望以后自己忘记了能有个笔记翻一下。
+1.Activity正常的生命周期&amp;ensp;&amp;ensp;&amp;ensp;&amp;ensp; 我们平常所说的生命周期就是正常的生命周期，也是Activity典型的生命周期，从Activity创建到结束会调用如下方法：
+&amp;ensp;&amp;ensp;&amp;ensp;&amp;ensp; （1）onC">
   
     <link rel="alternative" href="/atom.xml" title="ningwy&#39;s blog" type="application/atom+xml">
   
@@ -145,36 +155,74 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-Activity详解（一）——Activity的生命周期全分析" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      Activity详解（一）——Activity的生命周期全分析
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/01/04/Activity详解（一）——Activity的生命周期全分析/" class="archive-article-date">
+
+        
+        <a href="/2017/01/04/Activity详解（一）——Activity的生命周期全分析/" class="archive-article-date">
   	<time datetime="2017-01-04T05:58:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-04</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/01/04/Activity详解（一）——Activity的生命周期全分析/">Activity详解（一）——Activity的生命周期全分析</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Android的生命周期相信大家都很熟悉了，这里记录的是自己在学习开发过程中的一些经验之谈，希望以后自己忘记了能有个笔记翻一下。</p>
+<h3 id="1-Activity正常的生命周期"><a href="#1-Activity正常的生命周期" class="headerlink" title="1.Activity正常的生命周期"></a>1.Activity正常的生命周期</h3><p>&ensp;&ensp;&ensp;&ensp; 我们平常所说的生命周期就是正常的生命周期，也是Activity典型的生命周期，从Activity创建到结束会调用如下方法：</p>
+<p>&ensp;&ensp;&ensp;&ensp; （1）onCreate：在Activity创建的时候调用。我们新建一个Activity的时候就会看到这个方法，通常在里面初始化资源。</p>
+<p>&ensp;&ensp;&ensp;&ensp; （2）onStart：onCreate方法调用完成之后就会调用onStart方法。此时Activity已经属于可见状态，只不过我们还看不到，因为此时Activity还处于后台。要看到Activity得等onResume方法执行完毕。</p>
+<p>&ensp;&ensp;&ensp;&ensp; （3）onResume：该方法表示Activity已经被调到前台来了，不仅属于可见状态，我们肉眼还可以看到。要注意该方法和onStart方法的对比，onStart方法虽然也表示Activity处于可见状态，当时此时Activity还看不到，而onResume方法调用之后，Activity才算真正的可见。</p>
+<p>&ensp;&ensp;&ensp;&ensp; （4）onPause：在用户点击返回键或者后台键时，Activity会调用该方法，表示Activity被挂起了，看不到了。</p>
+<p>&ensp;&ensp;&ensp;&ensp; （5）onStop：在onPause方法执行完之后就会紧接着执行该方法，理论上是有可能在执行完onPause方法之后回到Activity而不执行onStop方法，不过这要求用户拥有极快的手速，所以一般不考虑这种情况，即调用完onPause之后马上调用onStop方法，而不考虑着两个方法之间还会有什么逻辑。onStop距离Activity真正被销毁只有一步之遥了，所以可以在这个方法里面做一些轻量级资源的回收保存的操作，但不能太耗时。</p>
+<p>&ensp;&ensp;&ensp;&ensp; （6）onDestroy：调用完该方法之后Activity算是真正地被销毁了，所以需要在这个方法里面做一些资源释放操作，例如释放数据库连接等。</p>
+<p>&ensp;&ensp;&ensp;&ensp; （7）onRestart：该方法是在调用onStop方法时，如果用户返回Activity，那么就会回调该方法，然后调用onStart，进入Activity的生命周期，而不会调用onCreate。</p>
 
-        <div class="article-info info-on-right">
-          
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/uploads/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/uploads/weixinpay.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -186,127 +234,88 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http:ningwy.github.io/2017/01/04/Activity详解（一）——Activity的生命周期全分析/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-      
-        </div></section>
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/05/26/getRunningTasks() deprecated之后如何获得topActivity/" class="archive-article-date">
-  	<time datetime="2016-05-26T05:58:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-05-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/05/26/getRunningTasks() deprecated之后如何获得topActivity/">getRunningTasks() deprecated之后如何获得topActivity</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Android</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Android/" class="article-tag-list-link color3">Android</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/03/19/用命令-hexo-d-部署到github上防止README-md被污染/" class="archive-article-date">
-  	<time datetime="2016-03-19T11:27:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-03-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/03/19/用命令-hexo-d-部署到github上防止README-md被污染/">用命令 hexo d 部署到github上防止README.md被污染</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Hexo/" class="article-tag-list-link color5">Hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2016/05/26/getRunningTasks() deprecated之后如何获得topActivity/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">getRunningTasks() deprecated之后如何获得topActivity</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+  
+    <div class="duoshuo"></div>
   
 
-    
+
 
 
           </div>
@@ -329,8 +338,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

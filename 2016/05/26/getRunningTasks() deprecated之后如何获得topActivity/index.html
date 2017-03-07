@@ -6,14 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="ningwy.github.io">
-  <title>Archives | ningwy&#39;s blog</title>
+  <title>getRunningTasks() deprecated之后如何获得topActivity | ningwy&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="ningwy's blog">
-<meta property="og:url" content="ningwy.github.io/archives/index.html">
+  <meta name="description" content="前言在Android sdk 22之前，要想获得topActivity，只需要用getRunningTasks(int maxNum)即可返回当前正在运行的任务栈，从任务栈中取出第一个即可，如下：123ActivityManager am = ((ActivityManager) getSystemService(ACTIVITY_SERVICE));List&amp;lt;ActivityManager">
+<meta property="og:type" content="article">
+<meta property="og:title" content="getRunningTasks() deprecated之后如何获得topActivity">
+<meta property="og:url" content="ningwy.github.io/2016/05/26/getRunningTasks() deprecated之后如何获得topActivity/index.html">
 <meta property="og:site_name" content="ningwy's blog">
+<meta property="og:description" content="前言在Android sdk 22之前，要想获得topActivity，只需要用getRunningTasks(int maxNum)即可返回当前正在运行的任务栈，从任务栈中取出第一个即可，如下：123ActivityManager am = ((ActivityManager) getSystemService(ACTIVITY_SERVICE));List&amp;lt;ActivityManager">
+<meta property="og:updated_time" content="2016-05-26T08:20:28.944Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ningwy's blog">
+<meta name="twitter:title" content="getRunningTasks() deprecated之后如何获得topActivity">
+<meta name="twitter:description" content="前言在Android sdk 22之前，要想获得topActivity，只需要用getRunningTasks(int maxNum)即可返回当前正在运行的任务栈，从任务栈中取出第一个即可，如下：123ActivityManager am = ((ActivityManager) getSystemService(ACTIVITY_SERVICE));List&amp;lt;ActivityManager">
   
     <link rel="alternative" href="/atom.xml" title="ningwy&#39;s blog" type="application/atom+xml">
   
@@ -145,84 +149,49 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-getRunningTasks() deprecated之后如何获得topActivity" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/01/04/Activity详解（一）——Activity的生命周期全分析/" class="archive-article-date">
-  	<time datetime="2017-01-04T05:58:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-04</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/01/04/Activity详解（一）——Activity的生命周期全分析/">Activity详解（一）——Activity的生命周期全分析</a>
+    <h1 class="article-title" itemprop="name">
+      getRunningTasks() deprecated之后如何获得topActivity
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Android</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-      
-        </div></section>
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/05/26/getRunningTasks() deprecated之后如何获得topActivity/" class="archive-article-date">
+        
+        <a href="/2016/05/26/getRunningTasks() deprecated之后如何获得topActivity/" class="archive-article-date">
   	<time datetime="2016-05-26T05:58:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-05-26</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/05/26/getRunningTasks() deprecated之后如何获得topActivity/">getRunningTasks() deprecated之后如何获得topActivity</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>在Android sdk 22之前，要想获得topActivity，只需要用getRunningTasks(int maxNum)即可返回当前正在运行的任务栈，从任务栈中取出第一个即可，如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ActivityManager am = ((ActivityManager) getSystemService(ACTIVITY_SERVICE));</div><div class="line">List&lt;ActivityManager.RunningTaskInfo&gt; taskInfo = am.getRunningTasks(<span class="number">5</span>);</div><div class="line">String packageName = taskInfo.get(<span class="number">0</span>).topActivity.getPackageName();</div></pre></td></tr></table></figure></p>
+<p>如上即可获得topActivity的包名，有了包名之后想干什么就干什么了。不过，如果就这么简单，就不值得记录学习了。</p>
+<h4 id="getRunningTasks-was-deprecated"><a href="#getRunningTasks-was-deprecated" class="headerlink" title="getRunningTasks() was deprecated"></a>getRunningTasks() was deprecated</h4><p>在Android L(也就是sdk 22)之后，getRunningTasks()方法以及被抛弃，原因是出于保护用户隐私之类的。如下：</p>
+<blockquote>
+<p>for L we do plan to have a new solution that will address some of the existing use cases of getRecentTasks(): we hope to expose the system’s internal usage stats service in a new and expanded form that is available to third party apps through the SDK.<br>The new usage stats service should have two major pieces of information. First, it will provided aggregated stats of the time the user spent in each app, and the last launch time of those apps, rolled up over days, weeks, months, and years. Second, it will include detailed usage events over the last few days, describing the time and ComponentName when any activity transitions to the foreground or background.<br>Access to this new usage data will require that the user explicitly grant the app access to usage stats through a new settings UI. They will be able to see all apps that have access and revoke access at any point.</p>
+</blockquote>
+<p>大概意思就是该方法以及被抛弃，然后用了一种新的更好地方式来代替，不过这种方式需要用户授予权限。这种方式就是用<code>UsageStatsManager</code>，详细请点击<a href="https://developer.android.com/reference/android/app/usage/UsageStatsManager.html" target="_blank" rel="external">here</a>。<br>下面直接上代码，在Android L之后获取topActivity包名：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 获得top activity的包名</div><div class="line"> * <span class="doctag">@return</span></div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getTopPackage</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">long</span> ts = System.currentTimeMillis();</div><div class="line">    UsageStatsManager mUsageStatsManager = (UsageStatsManager)getSystemService(Context.USAGE_STATS_SERVICE);</div><div class="line">    List&lt;UsageStats&gt; usageStats = mUsageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_BEST, ts-<span class="number">1000</span>, ts);</div><div class="line">    <span class="keyword">if</span> (usageStats == <span class="keyword">null</span> || usageStats.size() == <span class="number">0</span>) &#123;<span class="comment">//如果为空则返回""</span></div><div class="line">        <span class="keyword">return</span> <span class="string">""</span>;</div><div class="line">    &#125;</div><div class="line">    Collections.sort(usageStats, mRecentComp);<span class="comment">//mRecentComp = new RecentUseComparator()</span></div><div class="line">    <span class="keyword">return</span> usageStats.get(<span class="number">0</span>).getPackageName();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>下面是<code>RecentUseComparator</code>的代码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">RecentUseComparator</span> <span class="keyword">implements</span> <span class="title">Comparator</span>&lt;<span class="title">UsageStats</span>&gt; </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(UsageStats lhs, UsageStats rhs)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> (lhs.getLastTimeUsed() &gt; rhs.getLastTimeUsed()) ? -<span class="number">1</span> : (lhs.getLastTimeUsed() == rhs.getLastTimeUsed()) ? <span class="number">0</span> : <span class="number">1</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>使用UsageStatsManager需要如下权限：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">xmlns:tools</span>=<span class="string">"http://schemas.android.com/tools"</span></span></div><div class="line">    <span class="attr">android:name</span>=<span class="string">"android.permission.PACKAGE_USAGE_STATS"</span></div><div class="line">    <span class="attr">tools:ignore</span>=<span class="string">"ProtectedPermissions"</span> /&gt;</div></pre></td></tr></table></figure></p>
+<p>此外还需要用户授权去请求数据，可以用一下代码引导用户去设置页面开启<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Intent intent = <span class="keyword">new</span> Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);</div><div class="line">startActivity(intent);</div></pre></td></tr></table></figure></p>
+<p>当前还可以通过一下代码来检测用户是否已经授权，如果已经授权过了，则不用重复去引导用户<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 使用UsageStatsManager需要用户允许开启，该方法用于判断用户是否已经授权</div><div class="line"> * <span class="doctag">@param</span> context</div><div class="line"> * <span class="doctag">@return</span> true:还没有授权 false:已经授权</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">needPermissionForBlocking</span><span class="params">(Context context)</span> </span>&#123;</div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">        PackageManager packageManager = context.getPackageManager();</div><div class="line">        ApplicationInfo applicationInfo = packageManager.getApplicationInfo(context.getPackageName(), <span class="number">0</span>);</div><div class="line">        AppOpsManager appOpsManager = (AppOpsManager) context.getSystemService(Context.APP_OPS_SERVICE);</div><div class="line">        <span class="keyword">int</span> mode = appOpsManager.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS, applicationInfo.uid, applicationInfo.packageName);</div><div class="line">        <span class="keyword">return</span>  (mode != AppOpsManager.MODE_ALLOWED);</div><div class="line">    &#125; <span class="keyword">catch</span> (PackageManager.NameNotFoundException e) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>如此，我们就可以在全平台中获得topActivity的包名了，也就可以“为所欲为”啦。</p>
+<h4 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h4><p>下面是我做的一个应用锁小应用，目前在Android 4.3和Android 5.1完美运行。话不多说，show you the code !<br>在service中开启服务来监听应用程序的启动</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppLockService</span> <span class="keyword">extends</span> <span class="title">Service</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 用来让当WatchDogService被stop时停止循环遍历任务栈的topActivity</div><div class="line">     * true:循环遍历</div><div class="line">     * false:停止遍历</div><div class="line">     */</div><div class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> flag = <span class="keyword">false</span>;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 任务栈topActivity的包名</div><div class="line">     */</div><div class="line">    <span class="keyword">private</span> String packageName = <span class="string">""</span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AppLockService</span><span class="params">()</span> </span>&#123;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> IBinder <span class="title">onBind</span><span class="params">(Intent intent)</span> </span>&#123;</div><div class="line">        <span class="comment">// <span class="doctag">TODO:</span> Return the communication channel to the service.</span></div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException(<span class="string">"Not yet implemented"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">//分线程中循环遍历</span></div><div class="line">        <span class="keyword">new</span> Thread() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">                flag = <span class="keyword">true</span>;</div><div class="line">                <span class="keyword">while</span> (flag) &#123;</div><div class="line">                    <span class="comment">//获取包名</span></div><div class="line">                    <span class="keyword">if</span> (Build.VERSION.SDK_INT &lt; Build.VERSION_CODES.LOLLIPOP) &#123;<span class="comment">//版本小于lollipop的</span></div><div class="line">                        ActivityManager am = ((ActivityManager) getSystemService(ACTIVITY_SERVICE));</div><div class="line">                        List&lt;ActivityManager.RunningTaskInfo&gt; taskInfo = am.getRunningTasks(<span class="number">5</span>);</div><div class="line">                        packageName = taskInfo.get(<span class="number">0</span>).topActivity.getPackageName();</div><div class="line">                    &#125; <span class="keyword">else</span> &#123; <span class="comment">//版本为Lollipop及以上</span></div><div class="line">                        <span class="keyword">if</span> (needPermissionForBlocking(getApplicationContext())) &#123;</div><div class="line">                            <span class="comment">//如果用户没有授权，引导用户去设置页面授权</span></div><div class="line">                            Intent intent = <span class="keyword">new</span> Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);</div><div class="line">                            <span class="comment">//在service中开启activity需要为intent添加FLAG_ACTIVITY_NEW_TASK的flag</span></div><div class="line">                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);</div><div class="line">                            startActivity(intent);</div><div class="line">                        &#125; <span class="keyword">else</span> &#123;</div><div class="line">                            <span class="comment">//得到包名</span></div><div class="line">                            packageName = getTopPackage();</div><div class="line">                        &#125;</div><div class="line">                        Log.e(<span class="string">"TAG"</span>, <span class="string">"top app = "</span> + packageName);</div><div class="line">                        <span class="comment">//有了包名之后就可以与应用锁数据库里面的包名做匹配</span></div><div class="line">                        <span class="comment">//如果匹配上就弹出输入密码的页面，酱紫就可以实现应用锁了(是不是有点想得太简单了= =)</span></div><div class="line">                    &#125;</div><div class="line">                    SystemClock.sleep(<span class="number">50</span>);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;.start();</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 获得top activity的包名</div><div class="line">     *</div><div class="line">     * <span class="doctag">@return</span></div><div class="line">     */</div><div class="line">    <span class="meta">@TargetApi</span>(<span class="number">21</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getTopPackage</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">long</span> ts = System.currentTimeMillis();</div><div class="line">        UsageStatsManager mUsageStatsManager = (UsageStatsManager) getSystemService(Context.USAGE_STATS_SERVICE);</div><div class="line">        List&lt;UsageStats&gt; usageStats = mUsageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_BEST, ts - <span class="number">1000</span>, ts);</div><div class="line">        <span class="keyword">if</span> (usageStats == <span class="keyword">null</span> || usageStats.size() == <span class="number">0</span>) &#123;<span class="comment">//如果为空则返回""</span></div><div class="line">            <span class="keyword">return</span> <span class="string">""</span>;</div><div class="line">        &#125;</div><div class="line">        Collections.sort(usageStats, <span class="keyword">new</span> RecentUseComparator());</div><div class="line">        <span class="keyword">return</span> usageStats.get(<span class="number">0</span>).getPackageName();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     *</div><div class="line">     */</div><div class="line">    <span class="meta">@TargetApi</span>(<span class="number">21</span>)</div><div class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">RecentUseComparator</span> <span class="keyword">implements</span> <span class="title">Comparator</span>&lt;<span class="title">UsageStats</span>&gt; </span>&#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(UsageStats lhs, UsageStats rhs)</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> (lhs.getLastTimeUsed() &gt; rhs.getLastTimeUsed()) ? -<span class="number">1</span> : (lhs.getLastTimeUsed() == rhs.getLastTimeUsed()) ? <span class="number">0</span> : <span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 使用UsageStatsManager需要用户允许开启，该方法用于判断用户是否已经授权</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> context</div><div class="line">     * <span class="doctag">@return</span> true:还没有授权 false:已经授权</div><div class="line">     */</div><div class="line">    <span class="meta">@TargetApi</span>(<span class="number">19</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">needPermissionForBlocking</span><span class="params">(Context context)</span> </span>&#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            PackageManager packageManager = context.getPackageManager();</div><div class="line">            ApplicationInfo applicationInfo = packageManager.getApplicationInfo(context.getPackageName(), <span class="number">0</span>);</div><div class="line">            AppOpsManager appOpsManager = (AppOpsManager) context.getSystemService(Context.APP_OPS_SERVICE);</div><div class="line">            <span class="keyword">int</span> mode = appOpsManager.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS, applicationInfo.uid, applicationInfo.packageName);</div><div class="line">            <span class="keyword">return</span> (mode != AppOpsManager.MODE_ALLOWED);</div><div class="line">        &#125; <span class="keyword">catch</span> (PackageManager.NameNotFoundException e) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDestroy</span><span class="params">()</span> </span>&#123;</div><div class="line">        flag = <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h4><p>至此，在getRunningTasks方法被抛弃后，终于完成了一个能够适应于多版本sdk的应用锁。不过，也只是仅仅能用而已，以上肯定不是最优的解决方案。由于自己功力尚浅，如果有错误，看到的小伙伴请多多指教！</p>
 
-        <div class="article-info info-on-right">
-          
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -234,7 +203,7 @@
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -247,66 +216,95 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http:ningwy.github.io/2016/05/26/getRunningTasks() deprecated之后如何获得topActivity/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/03/19/用命令-hexo-d-部署到github上防止README-md被污染/" class="archive-article-date">
-  	<time datetime="2016-03-19T11:27:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-03-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/03/19/用命令-hexo-d-部署到github上防止README-md被污染/">用命令 hexo d 部署到github上防止README.md被污染</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Hexo/" class="article-tag-list-link color5">Hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
+  
+<nav id="article-nav">
+  
+    <a href="/2017/01/04/Activity详解（一）——Activity的生命周期全分析/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Activity详解（一）——Activity的生命周期全分析
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/03/19/用命令-hexo-d-部署到github上防止README-md被污染/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">用命令 hexo d 部署到github上防止README.md被污染</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+
+
+
+
   
-  
-    </div></section>
+    <div class="duoshuo"></div>
   
 
-    
+
 
 
           </div>
@@ -329,8 +327,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
