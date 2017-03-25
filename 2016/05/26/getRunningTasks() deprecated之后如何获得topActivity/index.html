@@ -99,7 +99,7 @@
 <meta property="og:url" content="ningwy.github.io/2016/05/26/getRunningTasks() deprecated之后如何获得topActivity/index.html">
 <meta property="og:site_name" content="ningwy's note">
 <meta property="og:description" content="前言在Android sdk 22之前，要想获得topActivity，只需要用getRunningTasks(int maxNum)即可返回当前正在运行的任务栈，从任务栈中取出第一个即可，如下：123ActivityManager am = ((ActivityManager) getSystemService(ACTIVITY_SERVICE));List&amp;lt;ActivityManager">
-<meta property="og:updated_time" content="2016-05-26T08:20:28.944Z">
+<meta property="og:updated_time" content="2017-03-11T11:48:23.333Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="getRunningTasks() deprecated之后如何获得topActivity">
 <meta name="twitter:description" content="前言在Android sdk 22之前，要想获得topActivity，只需要用getRunningTasks(int maxNum)即可返回当前正在运行的任务栈，从任务栈中取出第一个即可，如下：123ActivityManager am = ((ActivityManager) getSystemService(ACTIVITY_SERVICE));List&amp;lt;ActivityManager">
@@ -217,22 +217,12 @@
         </li>
       
         
-        <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
-            分类
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            关于
+            标签
           </a>
         </li>
       
@@ -247,12 +237,22 @@
         </li>
       
         
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
+        <li class="menu-item menu-item-android">
+          <a href="/categories/Android" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
             
-            标签
+            Android
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-weekly">
+          <a href="/weekly" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-paper-plane"></i> <br />
+            
+            周刊
           </a>
         </li>
       
@@ -406,6 +406,7 @@
 <blockquote>
 <p>for L we do plan to have a new solution that will address some of the existing use cases of getRecentTasks(): we hope to expose the system’s internal usage stats service in a new and expanded form that is available to third party apps through the SDK.<br>The new usage stats service should have two major pieces of information. First, it will provided aggregated stats of the time the user spent in each app, and the last launch time of those apps, rolled up over days, weeks, months, and years. Second, it will include detailed usage events over the last few days, describing the time and ComponentName when any activity transitions to the foreground or background.<br>Access to this new usage data will require that the user explicitly grant the app access to usage stats through a new settings UI. They will be able to see all apps that have access and revoke access at any point.</p>
 </blockquote>
+<a id="more"></a>
 <p>大概意思就是该方法以及被抛弃，然后用了一种新的更好地方式来代替，不过这种方式需要用户授予权限。这种方式就是用<code>UsageStatsManager</code>，详细请点击<a href="https://developer.android.com/reference/android/app/usage/UsageStatsManager.html" target="_blank" rel="external">here</a>。<br>下面直接上代码，在Android L之后获取topActivity包名：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 获得top activity的包名</div><div class="line"> * <span class="doctag">@return</span></div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getTopPackage</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">long</span> ts = System.currentTimeMillis();</div><div class="line">    UsageStatsManager mUsageStatsManager = (UsageStatsManager)getSystemService(Context.USAGE_STATS_SERVICE);</div><div class="line">    List&lt;UsageStats&gt; usageStats = mUsageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_BEST, ts-<span class="number">1000</span>, ts);</div><div class="line">    <span class="keyword">if</span> (usageStats == <span class="keyword">null</span> || usageStats.size() == <span class="number">0</span>) &#123;<span class="comment">//如果为空则返回""</span></div><div class="line">        <span class="keyword">return</span> <span class="string">""</span>;</div><div class="line">    &#125;</div><div class="line">    Collections.sort(usageStats, mRecentComp);<span class="comment">//mRecentComp = new RecentUseComparator()</span></div><div class="line">    <span class="keyword">return</span> usageStats.get(<span class="number">0</span>).getPackageName();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>下面是<code>RecentUseComparator</code>的代码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">RecentUseComparator</span> <span class="keyword">implements</span> <span class="title">Comparator</span>&lt;<span class="title">UsageStats</span>&gt; </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(UsageStats lhs, UsageStats rhs)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> (lhs.getLastTimeUsed() &gt; rhs.getLastTimeUsed()) ? -<span class="number">1</span> : (lhs.getLastTimeUsed() == rhs.getLastTimeUsed()) ? <span class="number">0</span> : <span class="number">1</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>使用UsageStatsManager需要如下权限：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">xmlns:tools</span>=<span class="string">"http://schemas.android.com/tools"</span></span></div><div class="line">    <span class="attr">android:name</span>=<span class="string">"android.permission.PACKAGE_USAGE_STATS"</span></div><div class="line">    <span class="attr">tools:ignore</span>=<span class="string">"ProtectedPermissions"</span> /&gt;</div></pre></td></tr></table></figure></p>
@@ -560,7 +561,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -571,7 +572,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -582,7 +583,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
